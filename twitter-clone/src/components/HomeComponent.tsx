@@ -17,7 +17,7 @@ function HomeComponent() {
 					<div className="w-full justify-between items-center flex">
 						<div></div>
 						<div className="w-full max-w-[100px]">
-							<button className="w-full rounded-full bg-twitter px-4 py-2 text-lg text-center hover:bg-opacity-70 transition duration-200 font-bold">
+							<button className="w-full rounded-full bg-primary px-4 py-2 text-lg text-center hover:bg-opacity-70 transition duration-200 font-bold">
 								Tweet
 							</button>
 						</div>

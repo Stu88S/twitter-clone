@@ -49,7 +49,7 @@ function LeftSidebar() {
 						{item.title !== "Twitter" && <div>{item.title}</div>}
 					</Link>
 				))}
-				<button className="w-full m-4 rounded-full bg-twitter py-4 text-2xl text-center hover:bg-opacity-70 transition duration-200">
+				<button className="w-full m-4 rounded-full bg-primary py-4 text-2xl text-center hover:bg-opacity-70 transition duration-200">
 					Tweet
 				</button>
 			</div>
