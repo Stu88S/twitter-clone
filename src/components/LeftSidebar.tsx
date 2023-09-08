@@ -36,7 +36,7 @@ const NAVIGATION_ITEMS = [
 
 function LeftSidebar() {
 	return (
-		<section className="sticky top-0  max-w-[275px] flex flex-col items-stretch h-screen mx-6">
+		<section className="sticky top-0  w-[275px] xl:flex flex-col items-stretch h-screen mx-6 hidden">
 			<div className="flex flex-col items-stretch h-full space-y-4 mt-4">
 				{NAVIGATION_ITEMS.map(item => (
 					<Link
@@ -49,7 +49,7 @@ function LeftSidebar() {
 						{item.title !== "Twitter" && <div>{item.title}</div>}
 					</Link>
 				))}
-				<button className="w-full m-4 rounded-full bg-primary py-4 text-2xl text-center hover:bg-opacity-70 transition duration-200">
+				<button className="w-full m-4 rounded-full bg-primary pt-2 pb-3 text-2xl text-center hover:bg-opacity-70 transition duration-200">
 					Tweet
 				</button>
 			</div>

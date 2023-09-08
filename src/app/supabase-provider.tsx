@@ -39,9 +39,7 @@ export default function SupabaseProvider({ children }: { children: React.ReactNo
 		supabase.auth.getSession().then(res => {
 			if (!res.data.session) {
 				setIsOpen(true);
-				return;
 			}
-			setUser(res.data.session.user);
 		});
 
 		return () => {
@@ -95,7 +93,7 @@ export default function SupabaseProvider({ children }: { children: React.ReactNo
 								className="my-2"
 							/>
 							<Input type="text" placeholder="your name" value={fullName} onChange={e => setFullName(e.target.value)} className="my-2" />
-							<p className="text-sm text-gray-900 my-2">you will receive a login magic link!</p>
+							<p className="text-sm my-2">you will receive a login magic link!</p>
 							<div className="flex w-full justify-end">
 								<Button disabled={isLoading}>Login</Button>
 							</div>
