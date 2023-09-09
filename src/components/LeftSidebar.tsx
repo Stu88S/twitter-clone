@@ -34,7 +34,7 @@ const NAVIGATION_ITEMS = [
 	},
 ];
 
-function LeftSidebar() {
+const LeftSidebar = () => {
 	return (
 		<section className="sticky top-0  w-[275px] xl:flex flex-col items-stretch h-screen mx-6 hidden">
 			<div className="flex flex-col items-stretch h-full space-y-4 mt-4">
@@ -67,6 +67,6 @@ function LeftSidebar() {
 			</button>
 		</section>
 	);
-}
+};
 
 export default LeftSidebar;

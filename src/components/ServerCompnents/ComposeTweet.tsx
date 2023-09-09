@@ -3,6 +3,8 @@ import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-next
 import { Database } from "@/lib/supabase";
 import { cookies, headers } from "next/headers";
 import { randomUUID } from "crypto";
+import FormClientComponent from "./FormClientComponent";
+import { PostgrestError, SupabaseClient } from "@supabase/supabase-js";
 
 const ComposeTweet = () => {
 	async function submitTweet(formData: FormData) {
@@ -12,39 +14,29 @@ const ComposeTweet = () => {
 
 		if (!tweet) return;
 
-		const supabase = createServerComponentSupabaseClient<Database>({ cookies, headers });
+		const supabaseClient = createServerComponentSupabaseClient({ cookies, headers });
 
-		const { data: userData, error: userError } = await supabase.auth.getUser();
+		const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+		const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
+
+		if (!supabaseUrl || !supabaseSecretKey) return { error: { message: "supabase credentials are not provided!" } as any };
+
+		const supabaseServer = new SupabaseClient(supabaseUrl, supabaseSecretKey);
+
+		const { data: userData, error: userError } = await supabaseClient.auth.getUser();
 
 		if (userError) return;
 
-		await supabase.from("tweets").insert({
+		const { data, error } = await supabaseServer.from("tweets").insert({
 			user_id: userData.user.id,
 			text: tweet.toString(),
 			id: randomUUID(),
 		});
+
+		return { data, error };
 	}
 
-	return (
-		<form action={submitTweet as any} className="flex flex-col w-full h-full">
-			<input
-				type="text"
-				name="tweet"
-				className="w-full h-full text-2xl placeholder:text-gray-600 bg-transparent border-b-[0.5px] border-gray-600 p-4 outline-none border-none"
-				placeholder="What's happening?"
-			/>
-			<div className="w-full justify-between items-center flex">
-				<div></div>
-				<div className="w-full max-w-[100px]">
-					<button
-						type="submit"
-						className="w-full rounded-full bg-primary px-4 py-2 text-lg text-center hover:bg-opacity-70 transition duration-200 font-bold">
-						Tweet
-					</button>
-				</div>
-			</div>
-		</form>
-	);
+	return <FormClientComponent serverAction={submitTweet} />;
 };
 
 export default ComposeTweet;

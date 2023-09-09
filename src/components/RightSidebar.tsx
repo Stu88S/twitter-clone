@@ -1,6 +1,6 @@
 import { BsSearch } from "react-icons/bs";
 
-function RightSidebar() {
+const RightSidebar = () => {
 	return (
 		<section className=" mt-2 w-[390px] hidden sticky top-2 xl:flex flex-col items-stretch h-screen px-6">
 			<div>
@@ -50,6 +50,6 @@ function RightSidebar() {
 			</div>
 		</section>
 	);
-}
+};
 
 export default RightSidebar;
