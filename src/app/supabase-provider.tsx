@@ -5,7 +5,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
 import type { SupabaseClient, User } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/lib/supabase";
+import type { Database } from "@/lib/supabasetypes";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,9 @@ export default function SupabaseProvider({ children }: { children: React.ReactNo
 		supabase.auth.getSession().then(res => {
 			if (!res.data.session) {
 				setIsOpen(true);
+				return;
 			}
+			setUser(res.data.session.user);
 		});
 
 		return () => {

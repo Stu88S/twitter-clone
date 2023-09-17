@@ -1,10 +1,10 @@
 import React from "react";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "@/lib/supabase";
 import { cookies, headers } from "next/headers";
 import { randomUUID } from "crypto";
-import FormClientComponent from "./FormClientComponent";
-import { PostgrestError, SupabaseClient } from "@supabase/supabase-js";
+import FormClientComponent from "../ClientComponents/FormClientComponent";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 
 const ComposeTweet = () => {
 	async function submitTweet(formData: FormData) {
@@ -32,6 +32,8 @@ const ComposeTweet = () => {
 			text: tweet.toString(),
 			id: randomUUID(),
 		});
+
+		revalidatePath("/");
 
 		return { data, error };
 	}

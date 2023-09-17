@@ -1,11 +1,10 @@
-import { BsDot, BsThreeDots, BsChat } from "react-icons/bs";
-import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
-import { IoStatsChart, IoShareOutline } from "react-icons/io5";
 import ComposeTweet from "./ServerCompnents/ComposeTweet";
+import Tweet from "./ClientComponents/Tweet";
+import { getTweets } from "@/lib/supabase/getTweets";
 
-const getTweets = async () => {};
+const HomeComponent = async () => {
+	const res = await getTweets();
 
-const HomeComponent = () => {
 	return (
 		<main className="flex xl:w-[50%] w-[600px] h-full min-h-screen flex-col border-l-[0.5px] border-r-[0.5px] border-gray-600">
 			<h1 className="text-xl font-bold p-6 backdrop-blur bg-black/10 sticky top-0">Home</h1>
@@ -14,56 +13,8 @@ const HomeComponent = () => {
 				<ComposeTweet />
 			</div>
 			<div className="flex flex-col w-full ">
-				{Array.from({ length: 5 }).map((_, i) => (
-					<div key={i} className="py-4 px-6 border-b-[0.5px] border-gray-600 flex space-x-4 w-full overflow-hidden">
-						<div>
-							<div className="w-10 h-10 bg-slate-200 rounded-full"></div>
-						</div>
-						<div>
-							<div className="flex flex-col w-full space-y-2">
-								<div className="flex items-center justify-between w-full">
-									<div className="flex items-center space-x-1 w-full">
-										<div className="font-bold">Club of Codersd</div>
-										<div className="text-gray-500">@clubofcoders</div>
-										<div className="text-gray-500">
-											<BsDot />
-										</div>
-										<div className="text-gray-500">1 hour ago</div>
-									</div>
-									<div className="">
-										<BsThreeDots />
-									</div>
-								</div>
-								<div className="text-white text-base">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque eveniet, reiciendis, beatae sequi modi provident optio,
-									eaque pariatur omnis ea repellat ratione voluptate voluptates sapiente. In vel deserunt eligendi fugiat, consectetur omnis
-									expedita aspernatur animi voluptatum velit ratione a rerum labore nisi minima, laborum exercitationem aliquid, harum ipsam
-									nesciunt. Eius et similique sunt quam odio, earum minus?
-								</div>
-
-								<div className="bg-slate-400 aspect-square w-full h-80 rounded-xl "></div>
-
-								<div className="flex items-center justify-around w-full pt-2">
-									<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
-										<BsChat />
-									</div>
-									<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
-										<AiOutlineRetweet />
-									</div>
-									<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
-										<AiOutlineHeart />
-									</div>
-									<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
-										<IoStatsChart />
-									</div>
-									<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
-										<IoShareOutline />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				))}
+				{res?.error && <div>Server error</div>}
+				{res?.data && res.data.map(tweet => <Tweet key={tweet.id} tweet={tweet} />)}
 			</div>
 		</main>
 	);
