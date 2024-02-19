@@ -1,7 +1,7 @@
 "use server";
 
 import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "../supabasetypes";
+import { Database } from "../supabase.types";
 import { randomUUID } from "crypto";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
