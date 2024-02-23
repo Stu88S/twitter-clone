@@ -1,15 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
 
-import type { SupabaseClient, User } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/lib/supabase.types";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Toaster, toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Toaster, toast } from "sonner";
+import type { Database } from "@/lib/supabase.types";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import type { SupabaseClient, User } from "@supabase/auth-helpers-nextjs";
 
 type SupabaseContext = {
 	supabase: SupabaseClient<Database>;
@@ -18,7 +18,9 @@ type SupabaseContext = {
 export const Context = createContext<SupabaseContext | undefined>(undefined);
 
 export default function SupabaseProvider({ children }: { children: React.ReactNode }) {
-	const [supabase] = useState(() => createBrowserSupabaseClient());
+	// const [supabase] = useState(() => createBrowserSupabaseClient());
+	const [supabase] = useState(createBrowserSupabaseClient);
+	console.log("SupabaseProvider is mounting...");
 	const [user, setUser] = useState<User | null>(null);
 	const router = useRouter();
 	const [isOpen, setIsOpen] = useState(false);

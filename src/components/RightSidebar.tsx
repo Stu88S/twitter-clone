@@ -2,7 +2,7 @@ import { BsSearch } from "react-icons/bs";
 
 const RightSidebar = () => {
 	return (
-		<section className=" mt-2 w-[390px] hidden sticky top-2 xl:flex flex-col items-stretch h-screen px-6">
+		<section className=" mt-2 w-[390px] hidden sticky top-2 xl:flex flex-col items-stretch h-[90vh] px-6">
 			<div>
 				<div className="relative w-full h-full group">
 					<input

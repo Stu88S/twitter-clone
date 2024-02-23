@@ -1,17 +1,17 @@
 "use client";
 
 import React from "react";
+import { toast } from "sonner";
 import { useRef } from "react";
 import { PostgrestError } from "@supabase/supabase-js";
-import { toast } from "sonner";
 
-type FormClientComponentProps = {
+type ComposeTweetFormProps = {
 	serverAction: (
 		formData: FormData
 	) => Promise<{ error: { message: string }; data?: undefined } | { data: null; error: PostgrestError | null } | undefined>;
 };
 
-const FormClientComponent = ({ serverAction }: FormClientComponentProps) => {
+const ComposeTweetForm = ({ serverAction }: ComposeTweetFormProps) => {
 	const resetRef = useRef<HTMLButtonElement>(null);
 
 	const handleSubmitTweet = async (data: any) => {
@@ -50,4 +50,4 @@ const FormClientComponent = ({ serverAction }: FormClientComponentProps) => {
 	);
 };
 
-export default FormClientComponent;
+export default ComposeTweetForm;

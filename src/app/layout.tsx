@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import SupabaseProvider from "./supabase-provider";
+import SupabaseProvider from "./supabasaeProvider";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -16,4 +16,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		</html>
 	);
 }
-

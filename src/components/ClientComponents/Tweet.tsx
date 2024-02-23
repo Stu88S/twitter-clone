@@ -1,15 +1,15 @@
 "use client";
 
+import { toast } from "sonner";
 import React, { useState, useTransition } from "react";
 import { TweetType, likeTweet } from "@/lib/supabase/getTweets";
-import { toast } from "sonner";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import { BsDot, BsThreeDots, BsChat } from "react-icons/bs";
-import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import { IoStatsChart, IoShareOutline } from "react-icons/io5";
+import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 dayjs.extend(relativeTime);
@@ -19,7 +19,9 @@ type TweetProps = {
 };
 
 const Tweet = ({ tweet }: TweetProps) => {
-	const [supabase] = useState(() => createBrowserSupabaseClient());
+	// const [supabase] = useState(() => createBrowserSupabaseClient());
+	const [supabase] = useState(createBrowserSupabaseClient);
+	// const user = useUser();
 	let [isLikePending, startTransition] = useTransition();
 
 	return (
@@ -64,7 +66,7 @@ const Tweet = ({ tweet }: TweetProps) => {
 												const user = res.data.user;
 												startTransition(() => likeTweet({ tweetId: tweet.id, userId: user.id }));
 											} else {
-												toast("pleasae login to like a tweet");
+												toast("please login to like a tweet");
 											}
 										})
 										.catch(() => {
