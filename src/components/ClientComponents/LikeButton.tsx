@@ -35,9 +35,8 @@ const LikeButton = ({ tweetId, likesCount, hasUserLiked }: LikeButtonProps) => {
 					});
 			}}
 			className="rounded-full flex item-center space-x-2 hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
-			{likesCount ?? 0}
-
 			{hasUserLiked ? <AiFillHeart className="w-5 h-5 text-rose-600" /> : <AiOutlineHeart className="w-5 h-5" />}
+			<span>{likesCount ?? 0}</span>
 		</button>
 	);
 };

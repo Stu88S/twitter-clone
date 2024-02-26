@@ -11,19 +11,11 @@ import { TweetType, getLikesCount, isLiked } from "@/lib/supabase/queries";
 dayjs.extend(relativeTime);
 
 type TweetProps = {
-	tweet: TweetType;
+	tweet: any;
 	currentUserId?: string;
 };
 
 const Tweet = async ({ tweet, currentUserId }: TweetProps) => {
-	const getTweetLikesCount = await getLikesCount(tweet.id);
-	const hasUserLiked = await isLiked({
-		tweetId: tweet.id,
-		userId: currentUserId,
-	});
-	console.log(hasUserLiked);
-	console.log(getTweetLikesCount);
-
 	return (
 		<div>
 			<div key={tweet.id} className="py-4 px-6 border-b-[0.5px] border-gray-600 flex space-x-4 w-full overflow-hidden">
@@ -34,8 +26,8 @@ const Tweet = async ({ tweet, currentUserId }: TweetProps) => {
 					<div className="flex flex-col w-full space-y-2">
 						<div className="flex items-center justify-between w-full">
 							<div className="flex items-center space-x-1 w-full">
-								<div className="font-bold">{tweet.profiles.full_name ?? ""}</div>
-								<div className="text-gray-500">@{tweet.profiles.username}</div>
+								<div className="font-bold">{tweet.full_name ?? ""}</div>
+								<div className="text-gray-500">@{tweet.username}</div>
 								<div className="text-gray-500">
 									<BsDot />
 								</div>
@@ -56,9 +48,9 @@ const Tweet = async ({ tweet, currentUserId }: TweetProps) => {
 							<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
 								<AiOutlineRetweet />
 							</div>
-							<LikeButton tweetId={tweet.id} likesCount={getTweetLikesCount.count} hasUserLiked={hasUserLiked} />
+							<LikeButton tweetId={tweet.id} likesCount={tweet.likes_count} hasUserLiked={Boolean(tweet?.user_has_liked)} />
 							<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
-								<IoStatsChart />L
+								<IoStatsChart />
 							</div>
 							<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
 								<IoShareOutline />
