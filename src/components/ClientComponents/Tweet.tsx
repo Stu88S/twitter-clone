@@ -6,7 +6,6 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { BsDot, BsThreeDots, BsChat } from "react-icons/bs";
 import { IoStatsChart, IoShareOutline } from "react-icons/io5";
-import { TweetType, getLikesCount, isLiked } from "@/lib/supabase/queries";
 
 dayjs.extend(relativeTime);
 
@@ -16,6 +15,8 @@ type TweetProps = {
 };
 
 const Tweet = async ({ tweet, currentUserId }: TweetProps) => {
+	const userId = currentUserId ? currentUserId : null;
+
 	return (
 		<div>
 			<div key={tweet.id} className="py-4 px-6 border-b-[0.5px] border-gray-600 flex space-x-4 w-full overflow-hidden">
@@ -48,7 +49,7 @@ const Tweet = async ({ tweet, currentUserId }: TweetProps) => {
 							<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
 								<AiOutlineRetweet />
 							</div>
-							<LikeButton tweetId={tweet.id} likesCount={tweet.likes_count} hasUserLiked={Boolean(tweet?.user_has_liked)} />
+							<LikeButton tweetId={tweet.id} userId={userId} likesCount={tweet.likes_count} hasUserLiked={Boolean(tweet?.user_has_liked)} />
 							<div className="rounded-full hover:bg-white/10 transition duration-200 p-2 cursor-pointer">
 								<IoStatsChart />
 							</div>

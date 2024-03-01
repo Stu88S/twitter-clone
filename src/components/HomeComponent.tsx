@@ -8,7 +8,7 @@ const HomeComponent = async () => {
 	const supabaseClient = createServerComponentSupabaseClient({ cookies, headers });
 
 	const { data: userData, error: userError } = await supabaseClient.auth.getUser();
-
+	const userId = userData?.user?.id;
 	const res = await getTweets(userData.user?.id);
 
 	return (
@@ -20,7 +20,7 @@ const HomeComponent = async () => {
 			</div>
 			<div className="flex flex-col w-full ">
 				{res?.error && <div>Server error</div>}
-				{res?.data && res.data.map((tweet: any) => <Tweet key={tweet.id} tweet={tweet} currentUserId={userData.user?.id} />)}
+				{res?.data && res.data.map((tweet: any) => <Tweet key={tweet.id} tweet={tweet} currentUserId={userId} />)}
 			</div>
 		</main>
 	);

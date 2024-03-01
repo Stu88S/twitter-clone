@@ -33,17 +33,18 @@ ORDER BY tweets.created_at DESC;
 `;
 
 export const getTweets = async (currentUserId?: string) => {
-	let query = queryWithoutCurrentUserID;
+	let query = pool.query(queryWithoutCurrentUserID);
 
 	if (currentUserId) {
-		query = queryCurrentUserID;
+		query = pool.query(queryCurrentUserID, [currentUserId]);
 	}
 
 	try {
-		const res = await pool.query(query, [currentUserId]);
+		const res = await query;
 		return { data: res.rows };
 	} catch (error) {
 		console.log(error);
+		return { error: "something wrong with querying the db" };
 	}
 };
 
